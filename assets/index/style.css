@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500;&display=swap');
+
+.landing-page-img{
+    width: 20%;
+    height: 20%;
+      display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+*{
+font-family: 'Quicksand', sans-serif !important;
+    text-align: center !important;
+}
+
+html{
+    background-image: url(https://wallpaperaccess.com/full/697544.jpg);
+    background-repeat: no-repeat;
+      background-attachment: fixed;
+  background-size: cover;
+}
+
+.btn{
+    background-color: white;
+    border: none;
+  color: black;
+  padding: 15px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
