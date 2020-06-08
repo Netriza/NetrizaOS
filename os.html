@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>AyzanOS</title>
+    <link href="./assets/AyzanOS/style.css" rel="stylesheet" type="text/css" />
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id" content="385292824573-vtdtu3lk9u6pi93ittnovg3jlefsutbm.apps.googleusercontent.com">
+    <script src="./assets/script.js"></script>
+
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js">
+  </script>
+  <script src="https://apis.google.com/js/client:platform.js?onload=start" async defer></script>
+
+  </head>
+  <body>
+    <img id="pfp" style="padding: 10px; height: 56px !important; width: 56px !important; position:absolute; top:0; right:0; z-index: 3;"  src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSXjTPEZ56SYotUAv78ApdYjpnw97Uv1NMRFhYD7KbCR1T0MM2k&usqp=CAU"> <!-- add an image, can hide until signed in if you'd like -->
+    <p id="userName">Not Signed In</p>
+    <p id="email">Not Signed In</p>
+    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+
+
+    <script>
+      function onSignIn(googleUser) {
+        var profile = googleUser.getBasicProfile();
+        console.log('ID: ' + profile.getId());
+        document.getElementById('userName').innerHTML = profile.getName();
+        document.getElementById('email').innerHTML = profile.getEmail();
+         // This sets the name and email
+        console.log('Name: ' + profile.getName());
+        console.log('Image URL: ' + profile.getImageUrl());
+        document.getElementById('pfp').src = profile.getImageUrl(); // this will set the image URL to the URL we received from google
+        console.log('Email: ' + profile.getEmail());
+      }
+    </script>
+
+  <button onclick="signOut()">Sign out</button>
+
+
+  <script>
+      
+      function signOut() {
+  gapi.auth2.getAuthInstance().signOut().then(function() {
+              document.getElementById('userName').innerHTML = "Not Signed In";
+        document.getElementById('email').innerHTML = "Not Signed In";
+         // This sets the name and email
+        document.getElementById('pfp').src = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSXjTPEZ56SYotUAv78ApdYjpnw97Uv1NMRFhYD7KbCR1T0MM2k&usqp=CAU";
+    console.log('user signed out')
+  })
+}
+
+      </script>
+
+  </body>
+</html>
