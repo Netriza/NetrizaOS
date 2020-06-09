@@ -4,17 +4,19 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <title>AyzanOS</title>
+
+
     <link href="./assets/AyzanOS/style.css" rel="stylesheet" type="text/css" />
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <meta name="google-signin-client_id" content="385292824573-vtdtu3lk9u6pi93ittnovg3jlefsutbm.apps.googleusercontent.com">
-    <script src="./assets/script.js"></script>
+
 
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js">
   </script>
   <script src="https://apis.google.com/js/client:platform.js?onload=start" async defer></script>
 
   </head>
-  <body>
+  <body onload="startTime()">
     <img id="pfp" style="padding: 10px; height: 56px !important; width: 56px !important; position:absolute; top:0; right:0; z-index: 3;"  src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSXjTPEZ56SYotUAv78ApdYjpnw97Uv1NMRFhYD7KbCR1T0MM2k&usqp=CAU"> <!-- add an image, can hide until signed in if you'd like -->
     <p id="userName">Not Signed In</p>
     <p id="email"></p>
@@ -35,8 +37,15 @@
       }
     </script>
 
-  <button onclick="signOut()">Sign out</button>
+  <button href="index.html" onclick="signOut()">Sign out</button>
 
+
+<div id="menu">
+    <div id="menuheader">
+        <h3>Menu</div>
+    </div>
+
+    </div>
 
   <script>
       
@@ -56,38 +65,48 @@
   <!-- Draggable DIV -->
 <div id="mydiv">
   <!-- Include a header DIV with the same name as the draggable DIV, followed by "header" -->
-  <div id="mydivheader"><span>Welcome</span><button onclick="myFunction()" id="close">x</button></div>
+  <div id="mydivheader"><span>Welcome</span><button onclick="closeWelcome()" id="close">x</button></div>
   <strong><h3>Welcome to AyzanOS</h3><strong>
   <br></br>
   <p>This is a public demonstration of Ayzan OS. Try it out!</p>
 </div>
-
-
-
-
-
-
-    <script>
-function myFunction() {
+<script>
+function closeWelcome() {
   var x = document.getElementById("mydiv");
   if (x.style.display === "none") {
     x.style.display = "block";
   } else {
     x.style.display = "none";
   }
-
-  var y = document.getElementById("mydivheader");
-  if (y.style.display === "none") {
-    y.style.display = "block";
-  } else {
-    y.style.display = "none";
-  }
 }
+    </script>
+<!--
+<div id="word">
+   Include a header DIV with the same name as the draggable DIV, followed by "header"
+  <div id="wordheader"><span>Word</span><button onclick="closeWelcome()" id="close">x</button></div>
+  <strong><h3>Welcome to AyzanOS</h3><strong>
+  <br></br>
+  <textarea></textarea>
+</div>
+ -->
 
+<div id="taskbar">
+    <img src="./icons/hyperion.png" id="logo" onclick="closeMenu()">
+    <img src="./icons/smile.svg" onclick="closeWelcome()">
+<p id="timeTxt"></p>
+    <img src="./icons/edit.svg" onclick="closeWord()">
+    </div>
 
-
+    <script>
+        function closeMenu() {
+  var x = document.getElementById("menu");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
         // Make the DIV element draggable:
-dragElement(document.getElementById("mydiv"));
+dragElement(document.getElementById("menu"));
 
 function dragElement(elmnt) {
   var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
@@ -129,6 +148,70 @@ function dragElement(elmnt) {
     document.onmousemove = null;
   }
 }
-        </script>
-  </body>
-</html>
+    </script>
+
+<script>
+function startTime() {
+  var today = new Date();
+  var h = today.getHours();
+  var m = today.getMinutes();
+  var s = today.getSeconds();
+  m = checkTime(m);
+  s = checkTime(s);
+  document.getElementById('timeTxt').innerHTML =
+  h + ":" + m + ":" + s;
+  var t = setTimeout(startTime, 500);
+}
+function checkTime(i) {
+  if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+  return i;
+}
+</script> 
+
+<script>
+dragElement(document.getElementById("mydiv"));
+
+function dragElement(elmnt) {
+  var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+  if (document.getElementById(elmnt.id + "header")) {
+    // if present, the header is where you move the DIV from:
+    document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
+  } else {
+    // otherwise, move the DIV from anywhere inside the DIV:
+    elmnt.onmousedown = dragMouseDown;
+  }
+
+function dragMouseDown(e) {
+    e = e || window.event;
+    e.preventDefault();
+    // get the mouse cursor position at startup:
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    document.onmouseup = closeDragElement;
+    // call a function whenever the cursor moves:
+    document.onmousemove = elementDrag;
+  }
+
+function elementDrag(e) {
+    e = e || window.event;
+    e.preventDefault();
+    // calculate the new cursor position:
+    pos1 = pos3 - e.clientX;
+    pos2 = pos4 - e.clientY;
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    // set the element's new position:
+    elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+    elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+  }
+
+function closeDragElement() {
+    // stop moving when mouse button is released:
+    document.onmouseup = null;
+    document.onmousemove = null;
+  }
+}
+    </script>
+<script src="https://AyzanOS--bloxy-cola.repl.co/script.js"></script>
+</body>
+    </html>
